@@ -1,0 +1,19 @@
+.root{
+    -fx-background-color: #009688;
+    -fx-background-image: url("https://wallpapertag.com/wallpaper/full/c/6/7/392342-3d-background-1920x1080-for-pc.jpg");
+    -fx-background-size: 100% 100%;
+    -fx-background-position: center;
+    -fx-background-repeat: no-repeat;
+    
+}
+.button{
+    -fx-background-color: #ffffff;
+    -fx-text-fill: #000000;
+    -fx-background-radius: 2;
+}
+
+.label{
+    -fx-text-fill:#ffffff;
+    -fx-font-family: Roboto,Helvetica Neue,Helvetica;
+    
+}
