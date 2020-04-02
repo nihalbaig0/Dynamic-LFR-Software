@@ -1,6 +1,5 @@
 package sample;
 
-import com.sun.source.tree.LambdaExpressionTree;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Insets;
@@ -23,7 +22,6 @@ import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
 import java.awt.*;
-import java.util.concurrent.Flow;
 
 import static javafx.scene.paint.Color.*;
 
@@ -39,8 +37,8 @@ public class Main extends Application {
 
         primaryStage.setTitle("Dynamic LFR Software");
         //First Scene
-        Label botlabel = new Label("Bot Specification");
-        botlabel.setFont(new Font("Lato Black",24));
+        Label botlabel = new Label("BOT SPECIFICATION");
+        botlabel.setFont(new Font(35));
 
         Label ssDistancelabel = new Label("S->S Distance ");
         Label numberOfSensorslabel = new Label("Number of Sensors ");
@@ -54,7 +52,7 @@ public class Main extends Application {
          widthtext = new TextField();
 
         Button next1 = new Button("Next");
-        next1.setStyle("-fx-background-color:#a6a6a6");
+        //next1.setStyle("-fx-background-color:#2196f3");
         next1.setOnAction(e-> {
             DrawTrack d = new DrawTrack();
             d.info1(toInch(Double.parseDouble(ssDistancetext.getText())),
@@ -95,8 +93,8 @@ public class Main extends Application {
         vb1.getChildren().addAll(botPane,firstPanel,secondPanel,nextPanel);
          botScene = new Scene(vb1, 800, 500);
         //second scene
-        Label tracklabel = new Label("Track Specification");
-        tracklabel.setFont(new Font("Lato Black",24));
+        Label tracklabel = new Label("TRACK SPECIFICATION");
+        tracklabel.setFont(new Font(35));
 
         Label lineWidthlabel = new Label("Line Width");
         Label lineColorlabel = new Label("Line Color");
@@ -123,7 +121,7 @@ public class Main extends Application {
         secondPanel_2.setAlignment(Pos.BASELINE_CENTER);
 
         Button next2 = new Button("Next");
-        next2.setStyle("-fx-background-color:#a6a6a6");
+        //next2.setStyle("-fx-background-color:#2196f3");
         next2.setOnAction(e-> {
             DrawTrack d = new DrawTrack();
            d.info2(toInch(Double.parseDouble(lineWidthtext.getText())),comboBox.getValue());
@@ -141,6 +139,8 @@ public class Main extends Application {
 
 
         primaryStage.setScene(botScene);
+        botScene.getStylesheets().addAll(getClass().getResource("If.css").toExternalForm());
+        trackScene.getStylesheets().addAll(getClass().getResource("If.css").toExternalForm());
         primaryStage.show();
     }
 
