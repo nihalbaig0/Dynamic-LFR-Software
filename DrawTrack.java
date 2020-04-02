@@ -7,8 +7,6 @@ import javafx.geometry.Orientation;
 import javafx.geometry.Pos;
 import javafx.scene.Cursor;
 import javafx.scene.Scene;
-import javafx.scene.canvas.Canvas;
-import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.*;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.FlowPane;
@@ -23,9 +21,6 @@ import javafx.scene.transform.Rotate;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
-import java.util.concurrent.Flow;
-
-import static java.awt.Color.white;
 
 public class DrawTrack {
     static double ssDistance,numberOfSensors,height,width, linewidth;
@@ -60,10 +55,12 @@ public class DrawTrack {
          this.linecolor = linecolor;
 
          TextField rectHeighttxt = new TextField();
-
+         TextField circleRadiustxt = new TextField();
          TextField angletxt = new TextField();
 
-
+         circlebtn = new Button("Circle");
+         circlebtn.setAlignment(Pos.BASELINE_CENTER);
+         circlebtn.setOnAction(e->createCircle("blackCircle",Main.toInch(Double.parseDouble(circleRadiustxt.getText()))));
 
          rectbtn = new Button("Rectangle");
          rectbtn.setAlignment(Pos.BASELINE_CENTER);
@@ -94,6 +91,7 @@ public class DrawTrack {
          Label linewidthcolorlabel = new Label();
          linewidthcolorlabel.setText("Line color : " + this.linecolor);
          Label rectHeightlbl = new Label("Height");
+         Label circleRadiuslbl = new Label("Radius");
          Label anglelbl = new Label("Angle");
 
 
@@ -115,7 +113,9 @@ public class DrawTrack {
          infopane.getChildren().addAll(botspeci,ssDistancelabel,numberOfSensorslabel,heightlabel,widthlabel,linewidthlabel,linewidthcolorlabel);
          infopane.setAlignment(Pos.BASELINE_RIGHT);
 
-
+         HBox hb1 = new HBox(10);
+         hb1.getChildren().addAll(circleRadiuslbl,circleRadiustxt);
+         hb1.setAlignment(Pos.BASELINE_CENTER);
          HBox hb2 = new HBox(10);
          hb2.getChildren().addAll(rectHeightlbl,rectHeighttxt);
          hb2.setAlignment(Pos.BASELINE_CENTER);
@@ -124,8 +124,9 @@ public class DrawTrack {
          hb3.setAlignment(Pos.BASELINE_CENTER);
 
          VBox vb  = new VBox(10);
-         vb.getChildren().addAll(hb2,rectbtn,hb3,anglebtn);
+         vb.getChildren().addAll(hb1,circlebtn,hb2,rectbtn,hb3,anglebtn);
          vb.setAlignment(Pos.BASELINE_LEFT);
+         //vb.setStyle("-fx-background-color: #585858");
 
          HBox hb = new HBox(10);
          hb.getChildren().addAll(vb,shapepane);
@@ -133,6 +134,7 @@ public class DrawTrack {
          hb.setPadding(new Insets(20,20,20,20));
 
          Scene drawtrackscene = new Scene(hb,1000,600);
+         drawtrackscene.getStylesheets().addAll(getClass().getResource("If.css").toExternalForm());
 
          window.setScene(drawtrackscene);
          window.show();
@@ -140,7 +142,19 @@ public class DrawTrack {
 
      }
 
+    void createCircle(String name,Double radius)
+    {
+        Circle circle;
+        circle = new Circle(radius, Color.WHITE);
+        circle.setStrokeWidth(width);
+        circleColor(circle);
+        circle.setCursor(Cursor.HAND);
+        circle.setOnMousePressed(circleOnMousePressedEventHandler);
+        circle.setOnMouseDragged(circleOnMouseDraggedEventHandler);
 
+        shapepane.getChildren().add(circle);
+
+    }
     void createRectangle(double width,double height)
     {
         Rectangle rect;
@@ -189,7 +203,14 @@ public class DrawTrack {
 
         }
     }
+    public void circleColor(Circle circle)
+    {
+        if(linecolor=="Black")
+            circle.setStroke(Color.BLACK);
+        else
+            circle.setStroke(Color.BLUE);
 
+    }
     public void rectColor(Rectangle rect)
     {
         if(linecolor=="Black")
