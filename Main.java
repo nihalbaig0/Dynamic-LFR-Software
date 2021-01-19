@@ -152,6 +152,6 @@ public class Main extends Application {
     {
         double res =  Toolkit.getDefaultToolkit().getScreenResolution();
 
-        return (res*pixel)/5.54;
+        return (res*pixel)/ 5.54;
     }
 }
